@@ -10,7 +10,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
+          - v1-dependencies-{{ checksum "app/composer.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
@@ -21,7 +21,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
+          key: v1-dependencies-{{ checksum "app/composer.json" }}
 
 workflows:
   version: 2
