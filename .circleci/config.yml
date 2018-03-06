@@ -23,7 +23,8 @@ jobs:
 
       - save_cache:
           paths:
-            - ./vendor
+            - ./app/vendor
+            - ./frontend/node_modules
           key: v1-dependencies-{{ checksum "app/composer.json" }}
 
 workflows:
