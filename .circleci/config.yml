@@ -23,3 +23,9 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
