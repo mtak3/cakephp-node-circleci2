@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  prepare:
+  prepare_and_test:
     docker:
       - image: circleci/php:7.1.14-node-browsers
       - image: circleci/mysql:5.7
@@ -19,19 +19,15 @@ jobs:
       - run: cd app && composer install -n
       - run: cd frontend && npm install
 
+      - run: cd app && composer check
+
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "app/composer.json" }}
 
-  unittest:
-    steps:
-      - run: cd app && composer check
-      
-
 workflows:
   version: 2
   test:
     jobs:
-      - prepare
-      - unittest
+      - prepare_and_test
