@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8.9.4
+      - image: circleci/php:7.1.14-apache-node-browsers
+      - image: circleci/mysql:5.7
+    steps:
+      - checkout
+      - run: cd app && composer install
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
