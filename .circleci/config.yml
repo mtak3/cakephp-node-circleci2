@@ -14,6 +14,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - run: apt-get install -y libicu-devel
       - run: sudo docker-php-ext-install intl
       - run: cd app && composer install
 
