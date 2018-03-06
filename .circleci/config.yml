@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  prepare:
     docker:
       - image: circleci/php:7.1.14-node-browsers
       - image: circleci/mysql:5.7
@@ -17,14 +17,21 @@ jobs:
       - run: sudo apt-get install -y libicu-dev
       - run: sudo docker-php-ext-install intl
       - run: cd app && composer install -n
+      - run: cd frontend && npm install
 
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "app/composer.json" }}
 
+  unittest:
+    steps:
+      - run: cd app && composer check
+      
+
 workflows:
   version: 2
   test:
     jobs:
-      - test
+      - prepare
+      - unittest
