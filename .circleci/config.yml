@@ -5,11 +5,21 @@ jobs:
       - image: circleci/node:8.9.4
       - image: circleci/php:7.1.14-apache-node-browsers
       - image: circleci/mysql:5.7
+
+    working_directory: ~/app
+
     steps:
       - checkout
-      - run: cd app && composer install
-workflows:
-  version: 2
-  test:
-    jobs:
-      - test
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "composer.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: composer install
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
