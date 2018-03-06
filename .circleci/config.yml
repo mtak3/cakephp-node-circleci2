@@ -2,7 +2,6 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:8.9.4
       - image: circleci/php:7.1.14-node-browsers
       - image: circleci/mysql:5.7
 
@@ -17,6 +16,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - run: find .
       - run: composer install
 
       - save_cache:
