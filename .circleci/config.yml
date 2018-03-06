@@ -16,7 +16,7 @@ jobs:
 
       - run: sudo apt-get install -y libicu-dev
       - run: sudo docker-php-ext-install intl
-      - run: cd app && composer install
+      - run: cd app && composer install -n
 
       - save_cache:
           paths:
